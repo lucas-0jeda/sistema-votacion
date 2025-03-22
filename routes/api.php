@@ -11,18 +11,10 @@ Route::get('/', function () {
 
 Route::get('/voters', [voterController::class, "getAllVoters"]);
 
-Route::get('/voters/{votanteId}', function ($votanteId) {
-    return "votante {$votanteId}";
-});
+Route::get('/voters/{votanteId}', [voterController::class, "findVoterById"]);
 
-Route::post('/voters/{votanteId}', function ($votanteId) {
-    return "creando votante {$votanteId}";
-});
+Route::post('/voters', [voterController::class, "createVoter"]);
 
-Route::put('/voters/{votanteId}', function ($votanteId) {
-    return "actualizando votante {$votanteId}";
-});
+Route::put('/voters/{votanteId}', [voterController::class, "updateVoterById"]);
 
-Route::delete('/voters/{votanteId}', function ($votanteId) {
-    return "borrando votante {$votanteId}";
-});
+Route::delete('/voters/{votanteId}', [voterController::class, "deleteVoterById"]);
