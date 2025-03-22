@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("lastName");
             $table->string("document")->unique();
-            $table->dateTime('dob', precision: 0);
+            $table->date('dob');
             $table->tinyInteger("is_candidate");
         });
     }
