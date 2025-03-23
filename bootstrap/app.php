@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use App\Http\Middleware\Admin;
+use App\Http\Middleware\User;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -23,8 +24,14 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
         ]);
 
-        $middleware->api(append: [
-            Admin::class
+       /*  $middleware->api(append: [
+            Admin::class,
+            User::class
+        ]); */
+
+         $middleware->alias([
+            'user' => \App\Http\Middleware\User::class, // Middleware vacío (solo para rutas públicas)
+            'admin' => \App\Http\Middleware\Admin::class, // Middleware de admin
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
