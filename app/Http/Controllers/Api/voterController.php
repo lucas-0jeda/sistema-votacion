@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Voter;
 use Illuminate\Support\Facades\Validator;
 
-class voterController extends Controller
-{
+class VoterController extends Controller{
     public function getAllVoters() {
         $voters = Voter::all();
         $data = [
