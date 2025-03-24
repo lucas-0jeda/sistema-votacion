@@ -64,4 +64,31 @@ class AuthController extends Controller{
         JWTAuth::invalidate(JWTAuth::getToken());
         return response()->json(['message' => 'Successfully logged out'], 200);
     }
+
+    public function forbbidenPassword(Request $request, $adminId){
+
+        $admin = Admin::find($adminId);
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:10|confirmed',
+        ]);
+
+        if($validator->fails()){
+            $data = [
+                "message" => "Error en la validacion de datos",
+                "errors" => $validator->errors(),
+                "status" => 422
+            ];
+            return response()->json(["error" => $validator->errors()], 422);
+        }
+
+        $admin->password = bcrypt($request->password);
+        $admin->save();
+
+        $data = [
+            "message" => "Contraseña actualizada correctamente",
+            "status" => 200
+        ];
+        return response()->json($data, 200);
+    }
 }

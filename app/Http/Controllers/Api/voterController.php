@@ -8,10 +8,20 @@ use App\Models\Voter;
 use Illuminate\Support\Facades\Validator;
 
 class VoterController extends Controller{
+    
     public function getAllVoters() {
         $voters = Voter::all();
         $data = [
             "voters" => $voters,
+            "status" => 200
+        ];
+        return response()->json($data, 200);
+    }
+
+    public function getCandidates(){
+        $candidates = Voter::where('is_candidate', 1)->get();
+        $data = [
+            "candidates" => $candidates,
             "status" => 200
         ];
         return response()->json($data, 200);
